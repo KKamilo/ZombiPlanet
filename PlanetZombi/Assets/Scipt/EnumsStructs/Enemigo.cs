@@ -8,6 +8,7 @@ public class Enemigo : MonoBehaviour
     public int rotarcion;
     public float veloci = 2f;
     public string gusto;
+    public int direccion;
     void Start()
     {
         gusto = ZombiHable();
@@ -41,6 +42,7 @@ public class Enemigo : MonoBehaviour
                     break;
                 case 1:
                     datos.mover = Accion.Moving;
+                    direccion = Random.Range(0, 4);
                     break;
             }
             yield return new WaitForSeconds(5f);
@@ -56,7 +58,24 @@ public class Enemigo : MonoBehaviour
     public void Update()
     {
         if (datos.mover == Accion.Moving)
-            transform.position += transform.forward * veloci * Time.deltaTime;
+        {   
+            switch (direccion)
+            {
+                case 0:
+                     transform.position += transform.forward * veloci * Time.deltaTime;
+                break;
+                case 1:
+                    transform.position -= transform.forward * veloci * Time.deltaTime;
+                    break;
+                case 2:
+                    transform.position += transform.right * veloci * Time.deltaTime;
+                    break;
+                case 3:
+                    transform.position -= transform.right * veloci * Time.deltaTime;
+                    break;
+            }
+            
+        }
     }
 }
 //Estrus que almacena los datos del Zombi
